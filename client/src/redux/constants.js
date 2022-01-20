@@ -1,0 +1,6 @@
+const TABLEDATA = {
+    LOAD: "REQUEST_DATA",
+    LOAD_SUCCESS: "RECEIVE_DATA",
+};
+
+export default TABLEDATA;
