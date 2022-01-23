@@ -1,4 +1,4 @@
-import TABLEDATA from './constants';
+import CONSTANTS from './constants';
 
 const getTheDate = () => {
     var today  = new Date();
@@ -9,27 +9,37 @@ export const initialState = {
     creatorName: '',
     comment: '',
     date: getTheDate(),
-    isLoading: false,
     tableData: [],
-    isError: false,
-}
+    isLoading: false,
+};
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case TABLEDATA.LOAD:
+        case CONSTANTS.LOADING:
             return {
                 ...state,
                 isLoading: true,
-                isError: false,
             };
-        case TABLEDATA.LOAD_SUCCESS:
+        case CONSTANTS.LOAD_SUCCESS:
             return {
                 ...state,
                 tableData: action.tableData,
                 isLoading: false,
             };
-            default: 
-                return state;
+        case CONSTANTS.SET_CREATOR_NAME: 
+            return {
+                ...state,
+                creatorName: action.payload
+            };
+        case CONSTANTS.SET_COMMENT: 
+            return {
+                ...state,
+                comment: action.payload
+            };  
+        case CONSTANTS.RESET_FORM: 
+            return initialState;          
+        default: 
+            return initialState;
     }        
 }
 

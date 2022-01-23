@@ -2,15 +2,20 @@
 .btn {
     text-transform: uppercase;
     font-size: 1rem !important;
-    background-color: #dd955a !important;
     width: 14rem;
     margin-top: 2rem !important;
-}
+};
+
+.textField {
+    background-color: white;
+};
 
 .label {
     text-align: left;
-}
+};
 
 .fieldContainer, .tableContainer {
     margin-top: 1rem !important;
-}
+};
+
+
