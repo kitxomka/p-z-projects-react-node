@@ -1,8 +1,11 @@
 /* Form styles */
+.container{
+    margin-top: 2rem !important;
+}
 .btn {
     text-transform: uppercase;
     font-size: 1rem !important;
-    width: 14rem;
+    width: 10rem;
     margin-top: 2rem !important;
 };
 
@@ -15,7 +18,12 @@
 };
 
 .fieldContainer, .tableContainer {
-    margin-top: 1rem !important;
-};
+    margin-top: 1rem;
+}
+
+hr {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
 
 

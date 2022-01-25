@@ -4,7 +4,7 @@ import { Container } from '@mui/material/';
 import './App.css';
 
 import Header from "./components/Header";
-import AppTabs from "./components/AppTabs";
+import Form from "./components/Form";
 
 const App = () => {
  
@@ -15,7 +15,7 @@ const App = () => {
             <Header />
           </Container>
           <Container fixed>
-            <AppTabs />
+            <Form />
           </Container>
         </CssBaseline>
         </React.Fragment>  

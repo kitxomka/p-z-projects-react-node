@@ -1,12 +1,13 @@
-import React, {useState} from 'react';
-import axios from 'axios';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Grid, Typography, Container, TextField, Button, InputLabel, CircularProgress } from '@mui/material/';
+import { Grid, Container, TextField, InputLabel } from '@mui/material/';
 import CONSTANTS from '../redux/constants';
+import RepeatingTable from './RepeatingTable';
+import SaveButton from './SaveButton';
 
 import './components.css';
 
-const URL = 'http://localhost:4000';
+// const URL = 'http://localhost:4000';
 
 const Form = () => {
 
@@ -27,45 +28,41 @@ const Form = () => {
         });
     };
 
-    const resetForm = () => {
-        dispatch({
-            type: CONSTANTS.RESET_FORM, 
-        });
-    };
+    // const resetForm = () => {
+    //     dispatch({
+    //         type: CONSTANTS.RESET_FORM, 
+    //     });
+    // };
 
-    const postToServer = () => {
-        const newComment = {
-            creatorName,
-            comment,
-            date
-        };
-        axios 
-            .post(URL, newComment)
-            .then(() => console.log('Comment created'))
-            .catch(err => {
-                console.log(err, "There appears some error");
-        });
-    };
+    // const postToServer = () => {
+    //     const newComment = {
+    //         creatorName,
+    //         comment,
+    //         date
+    //     };
+    //     axios 
+    //         .post(URL, newComment)
+    //         .then(() => console.log('Comment created'))
+    //         .catch(err => {
+    //             console.log(err, "There appears some error");
+    //     });
+    // };
 
-    //saving data in db
-    const saveComment = (e) => {
-        e.preventDefault();
-        if(creatorName.length === 0 || comment.length === 0 ){
-            alert('All fields are required!');
-        } else {
-            alert("You're comment has been saved");
-        };
-        console.log(creatorName, comment, date);
-        postToServer();
-        resetForm();
-    };
+    // const saveComment = (e) => {
+    //     e.preventDefault();
+    //     if(creatorName.length === 0 || comment.length === 0 ){
+    //         alert('All fields are required!');
+    //     } else {
+    //         alert("You're comment has been saved");
+    //     };
+    //     console.log(creatorName, comment, date);
+    //     postToServer();
+    //     resetForm();
+    // };
 
     return (
-        <Grid container direction='column' spacing={3} className='formGContainer' style={{textAlign: 'center'}}>
+        <Grid container direction='column' spacing={3} className='container'>
             <Grid item>
-                <Typography variant="h6">
-                    Comments
-                </Typography>
                 <Grid item xs={12} className='formItem'>
                     <Container maxWidth="md">
                         <form>
@@ -92,7 +89,7 @@ const Form = () => {
                                     />
                                 </Grid>
                             </Grid>
-                            <Grid container className='fieldContainer' spacing={2}>
+                            <Grid container className='fieldContainer'>
                                 <Grid item xs={12}>
                                     <InputLabel className='label' htmlFor="component-helper">Comment:</InputLabel>
                                     <TextField required multiline fullWidth 
@@ -106,16 +103,12 @@ const Form = () => {
                                     />
                                 </Grid>
                             </Grid>
-                            <Grid containet xs={12}>
-                                <Button disableElevation
-                                    className=''
-                                    variant="contained"
-                                    color="primary"
-                                    className='btn'
-                                    onClick={saveComment}
-                                >
-                                    Save Comment
-                                </Button>
+                            <hr/>
+                            <Grid container>
+                                <RepeatingTable />
+                            </Grid>
+                            <Grid containet xs={12} style={{ textAlign: 'center'}}>
+                                <SaveButton />
                             </Grid>
                         </form>
                     </Container>
