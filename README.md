@@ -21,13 +21,7 @@
     SQLite 
 
 #### Introduction:
-App contains two tabs:
-    ###### Form - active
-        This tab contains a form for create comments and seves it in DB file
-
-    ###### Table
-        This tab contains a table showing data from DB.
-        Every click on 'Add new line" adds new row to the table.
-        The currency dropdown shows data in dollar or shekel.
+    The application has a form for name and comments, as well as a table for price and quantity that the user fills out.
+    The data is stored in two database tables and linked to each other in the user ID field.
 
         
