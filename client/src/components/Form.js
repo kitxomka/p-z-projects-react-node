@@ -7,13 +7,18 @@ import SaveButton from './SaveButton';
 
 import './components.css';
 
-// const URL = 'http://localhost:4000';
 
 const Form = () => {
 
+    // brings the needed objects from from the state
     const { creatorName, comment, date } = useSelector((state) => state);
     const dispatch = useDispatch();
 
+    /**
+     * @param {*} e 
+     * dispatch on "SET_CREATOR_NAME" action
+     * updates state on creatorName field change
+     */
     const handleNameChange = (e) => {
         dispatch({
             type: CONSTANTS.SET_CREATOR_NAME,
@@ -21,44 +26,18 @@ const Form = () => {
         });
     };
 
+
+    /**
+     * @param {*} e 
+     * dispatch on "SET_SET_COMMENT" action
+     * updates state on comment field change
+     */
     const handleCommentChange = (e) => {
         dispatch({
             type: CONSTANTS.SET_COMMENT,
             payload: e.target.value 
         });
     };
-
-    // const resetForm = () => {
-    //     dispatch({
-    //         type: CONSTANTS.RESET_FORM, 
-    //     });
-    // };
-
-    // const postToServer = () => {
-    //     const newComment = {
-    //         creatorName,
-    //         comment,
-    //         date
-    //     };
-    //     axios 
-    //         .post(URL, newComment)
-    //         .then(() => console.log('Comment created'))
-    //         .catch(err => {
-    //             console.log(err, "There appears some error");
-    //     });
-    // };
-
-    // const saveComment = (e) => {
-    //     e.preventDefault();
-    //     if(creatorName.length === 0 || comment.length === 0 ){
-    //         alert('All fields are required!');
-    //     } else {
-    //         alert("You're comment has been saved");
-    //     };
-    //     console.log(creatorName, comment, date);
-    //     postToServer();
-    //     resetForm();
-    // };
 
     return (
         <Grid container direction='column' spacing={3} className='container'>

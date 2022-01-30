@@ -8,10 +8,18 @@ import './components.css';
 const RepeatingTable = () => {
 
     const [counter, setCouner] = useState(2);
+
+    // brings the needed objects from from the state
     const { price, quantity, newRow } = useSelector((state) => state);
     const dispatch = useDispatch();
 
-    
+
+    /**
+     * @param {*} e 
+     * dispatch on "SET_PRICE" action
+     * updates state on price field change
+     * and passing the value and id of specific row
+     */
     const handlePriceChange = (e) => {
         const id = e.target.id;
         const value= e.target.value;
@@ -21,6 +29,12 @@ const RepeatingTable = () => {
         });
     };
 
+     /**
+     * @param {*} e 
+     * dispatch on "SET_QUANTITY" action
+     * updates state on quantity field change
+     * and passing the value and id of specific row
+     */
     const handleQuantityChange = (e) => {
         const id = e.target.id;
         const value= e.target.value;
@@ -30,7 +44,12 @@ const RepeatingTable = () => {
         });
     };
 
-
+    // "SET_NEW_ROW" onClick on the "Add new line" sets new row on the table with new Id
+    /**
+     * @param {*} event 
+     * dispatch on "SET_NEW_ROW" action
+     * onClick on the "Add new line" sets new row on the table with new Id
+     */
     const onAddBtnClick = (event) => {
         dispatch({
             type: CONSTANTS.SET_NEW_ROW,

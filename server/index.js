@@ -8,10 +8,14 @@ app.use(express.urlencoded({ extended: false }));
 
 const sqlite3 = require('sqlite3').verbose();
 
+// DB path
 const DBSOURCE  = "../DB/database.db";
 let user = {};
 let products = [];
 
+/**
+ * @returns uuid
+ */
 const uuid = () => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -20,12 +24,14 @@ const uuid = () => {
   }
 
 // Server port
-const port = process.env.PORT || 4000;   // define a port number in which our app needs to be started.
+const port = process.env.PORT || 4000;   // define a port number in which our app will be started.
 
+ 
 app.listen(port, function() {
     console.log(`Running on ${port}`);
 });
 
+// Connecting to databese and run initDB on success
 const db = new sqlite3.Database(DBSOURCE, (err) => {
     if (err) {
         // Cannot open database
@@ -37,8 +43,11 @@ const db = new sqlite3.Database(DBSOURCE, (err) => {
       }    
 });
 
-const initDb = () => {
-    db.run(`CREATE TABLE IF NOT EXISTS Users ( id text PRIMARY KEY UNIQUE, creator_name text, date text, comment text );`,
+/**
+ * Creating "Users" and "UsersProducts" tables in DB (if not exist)
+ */
+const initDb = async () => {
+    await db.run(`CREATE TABLE IF NOT EXISTS Users ( id text PRIMARY KEY UNIQUE, creator_name text, date text, comment text );`,
         (err) => {
             if (err) {
                 console.log('Error creating table "Users": ', err);
@@ -48,7 +57,7 @@ const initDb = () => {
         }
     );
 
-    db.run(`CREATE TABLE IF NOT EXISTS UsersProducts ( id INTEGER PRIMARY KEY AUTOINCREMENT, user_id string, price INTEGER, quantity INTEGER );`,
+    await db.run(`CREATE TABLE IF NOT EXISTS UsersProducts ( id INTEGER PRIMARY KEY AUTOINCREMENT, user_id string, price INTEGER, quantity INTEGER );`,
         (err) => {
             if (err) {
                 console.log('Error creating table "UsersProducts": ', err);
@@ -59,7 +68,10 @@ const initDb = () => {
     );
 };
 
-
+/**
+ * on '/insert-data' query, save client form data to 'Users' and 'UsersProducts' tables.
+ * 
+ */
 app.post('/insert-data', async (req, res) => {
     console.log('/insert-data call');
     console.log('>>>>>>>>>>> req.body: ', req.body);
@@ -71,12 +83,10 @@ app.post('/insert-data', async (req, res) => {
         console.log('Error insert User: ', err);
         res.json({ "MESSAGE": "ERROR", "ERROR": err });
     }
-    
     try {
         console.log('adding products...');
         let query = `INSERT INTO UsersProducts(user_id, price, quantity) VALUES `;
         let values = [];
-
         for(let i = 0; i < req.body.products.length; i++) {
             const product = req.body.products[i];
             query += ` (?,?,?),`;
@@ -84,7 +94,6 @@ app.post('/insert-data', async (req, res) => {
             values.push(product.price);
             values.push(product.quantity);
         }
-
         query = query.slice(0, -1) + ';';
         console.log('>>>>>>> query', query);
         console.log('>>>>>>> values', values);
